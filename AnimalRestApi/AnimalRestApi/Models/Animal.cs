@@ -1,31 +1,18 @@
 using System.ComponentModel.DataAnnotations;
-using Cwiczenia5.Models;
 
 namespace AnimalRestApi.Models;
 
-public class Animal
+public class Animal(int id, string name, string description, string category, string area)
 {
-    private static int _nextId = 1;
-    public int Id { get; }
+    public int Id { get; } = id;
 
-    [Required] [MaxLength(50)] public string Name { get; set; }
+    [Required] [MaxLength(50)] public string Name { get; set; } = name;
+    
+    [MaxLength(200)] public string Description { get; set; } = description;
 
-    [Required] public AnimalType AnimalType { get; set; }
+    [Required] public string Category { get; set; } = category;
 
-    [Required] [Range(1, 50)] public double Weight { get; set; }
-
-    [Required] [MaxLength(50)] public string SkinColor { get; set; }
-
-    public Animal(string name, AnimalType animalType, double weight, string skinColor)
-    {
-        Id = _nextId;
-        _nextId++;
-
-        Name = name;
-        AnimalType = animalType;
-        Weight = weight;
-        SkinColor = skinColor;
-    }
+    [Required] [MaxLength(200)] public string Area { get; set; } = area;
 
     public override bool Equals(object? obj)
     {
