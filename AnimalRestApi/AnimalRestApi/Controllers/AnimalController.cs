@@ -1,3 +1,4 @@
+using AnimalRestApi.Models;
 using AnimalRestApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,5 +20,12 @@ public class AnimalController(IAnimalService service) : ControllerBase
         {
             return BadRequest(e.Message);
         }
+    }
+
+    [HttpPost]
+    public IActionResult AddAnimal(AnimalDto animalDto)
+    {
+        var affected = service.AddAnimal(animalDto);
+        return affected > 0 ? StatusCode(StatusCodes.Status201Created) : NoContent();
     }
 }

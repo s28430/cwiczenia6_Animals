@@ -19,4 +19,9 @@ public class AnimalService(IAnimalRepository repository) : IAnimalService
         }
         return repository.GetAnimals(orderBy);
     }
+
+    public int AddAnimal(AnimalDto animal)
+    {
+        return repository.AddAnimal(animal);
+    }
 }
