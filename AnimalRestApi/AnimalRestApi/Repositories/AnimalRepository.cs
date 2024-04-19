@@ -5,7 +5,8 @@ namespace AnimalRestApi.Repositories;
 
 public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
 {
-    public IEnumerable<Animal> GetAnimals()
+
+    public IEnumerable<Animal> GetAnimals(string orderBy)
     {
         using var conn = new SqlConnection(configuration["conn-string"]);
         conn.Open();
@@ -13,7 +14,8 @@ public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
         using var cmd = new SqlCommand();
         cmd.Connection = conn;
         cmd.CommandText = "SELECT a.idAnimal, a.name, a.description, a.category, a.area " +
-                          "FROM Animal a";
+                          "FROM Animal a " +
+                          "ORDER BY " + orderBy;
 
         var animals = new List<Animal>();
 
@@ -22,10 +24,10 @@ public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
         {
             var animal = new Animal(
                 id:(int)dr["idanimal"],
-                name:dr["name"].ToString(),
+                name:dr["name"].ToString() ?? "",
                 description:dr["description"].ToString() ?? "",
-                category:dr["category"].ToString(),
-                area:dr["area"].ToString()
+                category:dr["category"].ToString() ?? "",
+                area:dr["area"].ToString() ?? ""
             );
             
             animals.Add(animal);

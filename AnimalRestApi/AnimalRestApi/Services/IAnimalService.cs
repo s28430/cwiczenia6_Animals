@@ -4,5 +4,5 @@ namespace AnimalRestApi.Services;
 
 public interface IAnimalService
 {
-    IEnumerable<Animal> GetAnimals();
+    IEnumerable<Animal> GetAnimals(string orderBy);
 }

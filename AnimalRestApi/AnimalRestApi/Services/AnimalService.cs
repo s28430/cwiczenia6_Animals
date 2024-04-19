@@ -5,8 +5,8 @@ namespace AnimalRestApi.Services;
 
 public class AnimalService(IAnimalRepository repository) : IAnimalService
 {
-    public IEnumerable<Animal> GetAnimals()
+    public IEnumerable<Animal> GetAnimals(string orderBy)
     {
-        return repository.GetAnimals();
+        return repository.GetAnimals(orderBy);
     }
 }

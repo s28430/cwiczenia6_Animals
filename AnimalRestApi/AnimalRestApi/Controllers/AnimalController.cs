@@ -8,8 +8,8 @@ namespace AnimalRestApi.Controllers;
 public class AnimalController(IAnimalService service) : ControllerBase
 {
     [HttpGet]
-    public IActionResult GetAnimals()
+    public IActionResult GetAnimals(string orderBy = "idAnimal")
     {
-        return Ok(service.GetAnimals());
+        return Ok(service.GetAnimals(orderBy));
     }
 }
