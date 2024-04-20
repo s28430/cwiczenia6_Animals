@@ -35,4 +35,13 @@ public class AnimalService(IAnimalRepository repository) : IAnimalService
 
         return animal;
     }
+
+    public void UpdateAnimal(int id, AnimalDto animalDto)
+    {
+        var affected = repository.UpdateAnimal(id, animalDto);
+        if (affected == 0)
+        {
+            throw new ArgumentException($"The animal with id {id} was not found");
+        }
+    }
 }

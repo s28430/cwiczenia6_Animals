@@ -1,3 +1,4 @@
+using AnimalRestApi.Models;
 using AnimalRestApi.Repositories;
 using AnimalRestApi.Services;
 

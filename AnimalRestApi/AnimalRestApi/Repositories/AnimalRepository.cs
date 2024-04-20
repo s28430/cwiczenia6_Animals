@@ -80,4 +80,24 @@ public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
         );
         return animal;
     }
+
+    public int UpdateAnimal(int id, AnimalDto animalDto)
+    {
+        using var conn = new SqlConnection(configuration["conn-string"]);
+        conn.Open();
+
+        using var cmd = new SqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "UPDATE Animal " +
+                          "SET name = @name, description = @description, category = @category, area = @area " +
+                          "WHERE idAnimal = @idToUpdate";
+        cmd.Parameters.AddWithValue("name", animalDto.Name);
+        cmd.Parameters.AddWithValue("description", animalDto.Description);
+        cmd.Parameters.AddWithValue("category", animalDto.Category);
+        cmd.Parameters.AddWithValue("area", animalDto.Area);
+        cmd.Parameters.AddWithValue("idToUpdate", id);
+
+        var affected = cmd.ExecuteNonQuery();
+        return affected;
+    }
 }

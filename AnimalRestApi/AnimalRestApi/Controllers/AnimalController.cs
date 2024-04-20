@@ -1,6 +1,5 @@
 using AnimalRestApi.Models;
 using AnimalRestApi.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalRestApi.Controllers;
@@ -33,7 +32,7 @@ public class AnimalController(IAnimalService service) : ControllerBase
         }
         catch (ArgumentException e)
         {
-            return BadRequest(e.Message);
+            return NotFound(e.Message);
         }
     }
 
@@ -42,5 +41,19 @@ public class AnimalController(IAnimalService service) : ControllerBase
     {
         var affected = service.AddAnimal(animalDto);
         return affected > 0 ? StatusCode(StatusCodes.Status201Created) : NoContent();
+    }
+
+    [HttpPut("{id:int}")]
+    public IActionResult UpdateAnimal(int id, AnimalDto animalDto)
+    {
+        try
+        {
+            service.UpdateAnimal(id, animalDto);
+            return Ok();
+        }
+        catch (ArgumentException e)
+        {
+            return NotFound(e.Message);
+        }
     }
 }
