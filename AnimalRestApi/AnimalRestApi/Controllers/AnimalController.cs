@@ -56,4 +56,18 @@ public class AnimalController(IAnimalService service) : ControllerBase
             return NotFound(e.Message);
         }
     }
+
+    [HttpDelete("{id:int}")]
+    public IActionResult DeleteAnimal(int id)
+    {
+        try
+        {
+            service.DeleteAnimal(id);
+            return NoContent();
+        }
+        catch (ArgumentException e)
+        {
+            return NotFound(e.Message);
+        }
+    }
 }

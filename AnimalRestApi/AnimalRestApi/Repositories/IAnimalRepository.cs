@@ -8,4 +8,5 @@ public interface IAnimalRepository
     int AddAnimal(AnimalDto animal);
     Animal? GetAnimalById(int id);
     int UpdateAnimal(int id, AnimalDto animalDto);
+    int DeleteAnimal(int id);
 }

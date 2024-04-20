@@ -44,4 +44,13 @@ public class AnimalService(IAnimalRepository repository) : IAnimalService
             throw new ArgumentException($"The animal with id {id} was not found");
         }
     }
+
+    public void DeleteAnimal(int id)
+    {
+        var affected = repository.DeleteAnimal(id);
+        if (affected == 0)
+        {
+            throw new ArgumentException($"The animal with id {id} was not found");
+        }
+    }
 }

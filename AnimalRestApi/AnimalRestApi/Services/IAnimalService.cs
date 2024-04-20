@@ -8,4 +8,5 @@ public interface IAnimalService
     int AddAnimal(AnimalDto animal);
     Animal GetAnimalById(int id);
     void UpdateAnimal(int id, AnimalDto animalDto);
+    void DeleteAnimal(int id);
 }

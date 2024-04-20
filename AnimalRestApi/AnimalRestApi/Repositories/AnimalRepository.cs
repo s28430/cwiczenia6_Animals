@@ -100,4 +100,19 @@ public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
         var affected = cmd.ExecuteNonQuery();
         return affected;
     }
+
+    public int DeleteAnimal(int id)
+    {
+        using var conn = new SqlConnection(configuration["conn-string"]);
+        conn.Open();
+
+        using var cmd = new SqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "DELETE FROM animal " +
+                          "WHERE idAnimal = @id";
+        cmd.Parameters.AddWithValue("id", id);
+
+        var affected = cmd.ExecuteNonQuery();
+        return affected;
+    }
 }
