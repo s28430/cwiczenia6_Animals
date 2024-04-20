@@ -15,7 +15,7 @@ public class AnimalService(IAnimalRepository repository) : IAnimalService
         if (!IsOrderByValid(orderBy))
         {
             throw new ArgumentException($"Invalid value for orderBy." +
-                                        $" It should be one of the following: {string.Join(", ", ValidOrderByValues)}");
+                                        $" It should be one of the following: {string.Join(", ", ValidOrderByValues)}.");
         }
         return repository.GetAnimals(orderBy);
     }
@@ -23,5 +23,16 @@ public class AnimalService(IAnimalRepository repository) : IAnimalService
     public int AddAnimal(AnimalDto animal)
     {
         return repository.AddAnimal(animal);
+    }
+
+    public Animal GetAnimalById(int id)
+    {
+        var animal = repository.GetAnimalById(id);
+        if (animal is null)
+        {
+            throw new ArgumentException($"The animal with id {id} was not found.");
+        }
+
+        return animal;
     }
 }

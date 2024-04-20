@@ -1,5 +1,6 @@
 using AnimalRestApi.Models;
 using AnimalRestApi.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalRestApi.Controllers;
@@ -15,6 +16,20 @@ public class AnimalController(IAnimalService service) : ControllerBase
         {
             var animals = service.GetAnimals(orderBy);
             return Ok(animals);
+        }
+        catch (ArgumentException e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet("{id:int}")]
+    public IActionResult GetAnimalById(int id)
+    {
+        try
+        {
+            var animal = service.GetAnimalById(id);
+            return Ok(animal);
         }
         catch (ArgumentException e)
         {

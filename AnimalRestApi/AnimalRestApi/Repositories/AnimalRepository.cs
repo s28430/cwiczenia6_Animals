@@ -52,4 +52,32 @@ public class AnimalRepository(IConfiguration configuration) : IAnimalRepository
         var affected = cmd.ExecuteNonQuery();
         return affected;
     }
+
+    public Animal? GetAnimalById(int id)
+    {
+        using var conn = new SqlConnection(configuration["conn-string"]);
+        conn.Open();
+
+        using var cmd = new SqlCommand();
+        cmd.Connection = conn;
+        cmd.CommandText = "SELECT a.idAnimal, a.name, a.description, a.category, a.area " +
+                          "FROM animal a " +
+                          "WHERE a.idAnimal = @id";
+        cmd.Parameters.AddWithValue("id", id);
+        var dr = cmd.ExecuteReader();
+
+        if (!dr.Read())
+        {
+            return null;
+        }
+
+        var animal = new Animal(
+            id: (int)dr["idAnimal"],
+            name: dr["name"].ToString() ?? "",
+            description:dr["description"].ToString() ?? "",
+            category: dr["category"].ToString() ?? "",
+            area: dr["area"].ToString() ?? ""
+        );
+        return animal;
+    }
 }

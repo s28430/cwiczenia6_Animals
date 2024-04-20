@@ -4,6 +4,7 @@ namespace AnimalRestApi.Models;
 
 public class Animal(int id, string name, string description, string category, string area)
 {
+    [Key]
     public int Id { get; } = id;
 
     [Required] [MaxLength(50)] public string Name { get; set; } = name;
